@@ -1,15 +1,35 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.text.DecimalFormat;
+import java.util.stream.IntStream;
 
 public class task53 {
     // https://www.hackerrank.com/challenges/s10-binomial-distribution-1/problem
     @Test
     public void task53() {
-        System.out.println(binomialDistribution(1.09, 2)); //0.696
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        //System.out.println(decimalFormat.format(binomialDistribution(1.09, 1)));
+        Assertions.assertEquals(0.696, Double.parseDouble(decimalFormat.format(binomialDistribution(1.09, 1))));
+
     }
 
     private double binomialDistribution(double ratio, int outcome) {
-        double prohability = ratio / outcome;
+        double result = 0.0;
+        double p = (ratio)/(ratio+outcome);
+        double q = 1-p;
 
-        return prohability;
+        for(int i = 6; i >= 3; i--) {
+            result += combination(i) * Math.pow(p, i) * Math.pow(q, 6-i);
+        }
+        return result;
+    }
+
+    private double factorial(int number) {
+        return IntStream.rangeClosed(1, number).reduce(1, (i, num) -> i * num);
+    }
+
+    private double combination(int i) {
+        return (factorial(6)/(factorial(i) * factorial(6-i)));
     }
 }
