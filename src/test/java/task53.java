@@ -9,20 +9,20 @@ public class task53 {
     @Test
     public void task53() {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        //System.out.println(decimalFormat.format(binomialDistribution(1.09, 1)));
         Assertions.assertEquals(0.696, Double.parseDouble(decimalFormat.format(binomialDistribution(1.09, 1))));
 
     }
 
     private double binomialDistribution(double ratio, int outcome) {
-        double result = 0.0;
         double p = (ratio)/(ratio+outcome);
         double q = 1-p;
-
-        for(int i = 6; i >= 3; i--) {
+        /*for(int i = 6; i >= 3; i--) {
             result += combination(i) * Math.pow(p, i) * Math.pow(q, 6-i);
-        }
-        return result;
+        }*/
+        return IntStream.range(3,7)
+                .mapToDouble(i -> combination(i) * Math.pow(p, i) * Math.pow(q, 6-i))
+                .sum();
+
     }
 
     private double factorial(int number) {
