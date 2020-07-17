@@ -14,8 +14,8 @@ public class task53 {
     }
 
     private double binomialDistribution(double ratio, int outcome) {
-        double p = (ratio)/(ratio+outcome);
-        double q = 1-p;
+        double p = (ratio)/(ratio+outcome); // 1.09/1
+        double q = 1-p; // 1-p
         /*for(int i = 6; i >= 3; i--) {
             result += combination(i) * Math.pow(p, i) * Math.pow(q, 6-i);
         }*/
