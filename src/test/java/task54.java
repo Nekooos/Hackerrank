@@ -1,8 +1,12 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 public class task54 {
     //https://www.hackerrank.com/challenges/ctci-ransom-note/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dictionaries-hashmaps
@@ -21,26 +25,19 @@ public class task54 {
     }
 
     private String ransomNote(String[] magazine, String[] note) {
-        HashMap<Integer, String> words = new HashMap<>();
-        words.put(1, "test");
-        //System.out.println(words.get(1));
-        //System.out.println(words.entrySet());
-        BiFunction<String, String, String> customMerge = (val1, val2) -> val1 + val2 + "derp";
-        //System.out.println(customMerge.apply("1", "derp"));
-        words.merge(2, "test", customMerge);
-        words.merge(2, "test",  (v1, v2) -> v1.equals(v2) ? "yes" : "no"); /*{
-            if (v1.equals(v2)) {
-                return "yes";
-            } else {
-                return "no";
-            }
-        });*/
-        words.merge(3, "test", customMerge);
-        System.out.println(words.entrySet());
-        words.replace(1, "test", "new 1");
-        words.replace(3, "new 3");
-        words.forEach((integer, string) -> System.out.println(integer + " " + string));
+        Hashtable<String, Integer> magazineHash = new Hashtable<>();
 
+        for(String word: magazine){
+            magazineHash.put(word, magazineHash.getOrDefault(word ,0) +1);
+        }
+
+        for(String word: note){
+            if(magazineHash.getOrDefault(word,0)==0)
+                return "no";
+            else
+                magazineHash.put(word, magazineHash.get(word)-1);
+        }
         return "yes";
+
     }
 }
