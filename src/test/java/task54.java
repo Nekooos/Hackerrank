@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.ls.LSOutput;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,8 +34,10 @@ public class task54 {
         }
 
         for(String word: note){
-            if(magazineHash.getOrDefault(word,0)==0)
+            if(magazineHash.getOrDefault(word,0)==0) {
+                magazineHash.entrySet().stream().forEach(s -> System.out.println(s));
                 return "no";
+            }
             else
                 magazineHash.put(word, magazineHash.get(word)-1);
         }
